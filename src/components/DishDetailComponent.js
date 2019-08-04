@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle } from 'reactstrap';
     
-import './DishDetailComponent';
 
-class Menu extends Component {
+
+class DishDetail extends Component {
 
     constructor(props) {
         super(props);
@@ -35,13 +35,40 @@ class Menu extends Component {
             );
     }
 
+    renderComments(comments){
+
+             if(comments != null)
+             {
+                    // eslint-disable-next-line no-lone-blocks
+                    
+                        return(
+                         <div>
+                            <h4>Comments</h4>
+
+                          --  <h6>{id.comments.comment}</h6> 
+
+                           <h6>{id.comments.author} , {id.comments.date}</h6>   
+
+                            </div>
+                        )
+                    
+
+             }
+             else{
+                 <div></div>
+             }
+               
+
+
+    }
+
     render() {
-        const menu = this.props.dishes.map((dish) => {
+        const dishDetail = this.props.dishes.map((dish) => {
             return (
               <div  className="col-12 col-md-5 m-1">
                 <Card key={dish.id}
                   onClick={() => this.onDishSelect(dish)}>
-                  <CardImg width="100%" src={dish.image} alt={dish.name} />
+                  <CardImg width="50%" top src={dish.image} alt={dish.name} />
                   <CardImgOverlay>
                       <CardTitle>{dish.name}</CardTitle>
                   </CardImgOverlay>
@@ -53,17 +80,17 @@ class Menu extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    {menu}
-                </div>
-                <div className="row">
-                  <div  className="col-12 col-md-10 m-1">
+                  <div  className="col-12 col-md-5 m-1">
                     {this.renderDish(this.state.selectedDish)}
+                   <div  className="col-12 col-md-5 m-1">
+                   {this.renderComments(this.state.selectedDish)}
                   </div>
                 </div>
+            </div>
             </div>
         );
     }
 }
 
 
-export default Menu;
+export default DishDetail;
